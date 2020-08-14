@@ -1,0 +1,23 @@
+development: &default
+  adapter: postgresql
+  database: tiny_tty_server_development
+  encoding: utf8
+  min_messages: warning
+  pool: <%= Integer(ENV.fetch("DB_POOL", 5)) %>
+  reaping_frequency: <%= Integer(ENV.fetch("DB_REAPING_FREQUENCY", 10)) %>
+  timeout: 5000
+
+test:
+  <<: *default
+  database: tiny_tty_server_test
+
+production: &production
+  adapter: postgresql
+  encoding: utf8
+  min_messages: warning
+  pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
+  reaping_frequency: <%= Integer(ENV.fetch("DB_REAPING_FREQUENCY", 10)) %>
+  timeout: 5000
+  database: tiny_tty_server_production
+  username: myapp
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
