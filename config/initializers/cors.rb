@@ -8,4 +8,5 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   end
 end
 
+Rails.application.config.hosts << /.*\.herokuapp\.com/
 Rails.application.config.hosts << /.*\.hwcdn\.net/
