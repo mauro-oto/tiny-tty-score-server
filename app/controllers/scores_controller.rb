@@ -7,12 +7,20 @@ class ScoresController < ApplicationController
   end
 
   def save_score
-    Rails.logger.info request.user_agent
-    if request.user_agent && request.user_agent.start_with?("DragonRuby")
+    Rails.logger.info "user agent: #{request.user_agent}"
+    Rails.logger.info "request referral: #{request.referral}"
+    if allow_request?
       Score.create(name: params[:name], score: params[:score])
       head :ok
     else
       head :unauthorized
     end
+  end
+
+  private
+
+  def allow_request?
+    request.user_agent.start_with?("DragonRuby") ||
+      request.referral
   end
 end
