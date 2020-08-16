@@ -7,8 +7,8 @@ class ScoresController < ApplicationController
   end
 
   def save_score
-    if request.referer.matches? /.*\.hwcdn\.net/
-      Score.create(name: params[:name], score: params[:score])
-    end
+    Rails.logger.info request
+    Rails.logger.info request.user_agent
+    Score.create(name: params[:name], score: params[:score])
   end
 end
