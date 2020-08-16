@@ -7,8 +7,6 @@ class ScoresController < ApplicationController
   end
 
   def save_score
-    Rails.logger.info "user agent: #{request.user_agent}"
-    Rails.logger.info "request referer: #{request.referer}"
     if allow_request?
       Score.create(name: params[:name], score: params[:score])
       head :ok
@@ -21,6 +19,6 @@ class ScoresController < ApplicationController
 
   def allow_request?
     request.user_agent.start_with?("DragonRuby") ||
-      request.referer
+      request.referer.matches?(/.*\.hwcdn\.net/)
   end
 end
