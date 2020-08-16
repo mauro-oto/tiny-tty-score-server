@@ -7,6 +7,8 @@ class ScoresController < ApplicationController
   end
 
   def save_score
-    Score.create(name: params[:name], score: params[:score])
+    if request.referer.matches? /.*\.hwcdn\.net/
+      Score.create(name: params[:name], score: params[:score])
+    end
   end
 end
