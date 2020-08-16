@@ -19,6 +19,6 @@ class ScoresController < ApplicationController
 
   def allow_request?
     request.user_agent.start_with?("DragonRuby") ||
-      request.referer.matches?(/.*\.hwcdn\.net/)
+      request.referer.match?(/.*\.hwcdn\.net/)
   end
 end
