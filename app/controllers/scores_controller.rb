@@ -7,8 +7,11 @@ class ScoresController < ApplicationController
   end
 
   def save_score
-    Rails.logger.info request
-    Rails.logger.info request.user_agent
-    Score.create(name: params[:name], score: params[:score])
+    if request.user_agent && request.user_agent.start_with? "DragonRuby"
+      Score.create(name: params[:name], score: params[:score])
+      head :ok
+    else
+      head :unauthorized
+    end
   end
 end
